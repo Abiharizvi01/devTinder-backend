@@ -1,12 +1,12 @@
 {
   "name": "devtinder-backend",
   "version": "1.0.0",
-  "type":"module",
+  "type": "module",
   "description": "tinder for developers",
   "main": "index.js",
   "scripts": {
-    "start":"node src/app.js",
-    "dev":"nodemon src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "keywords": [
     "nodejs",
@@ -16,6 +16,8 @@
   "author": "Abiha Rizvi",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.7.1",
+    "validator": "^13.15.35"
   }
 }
