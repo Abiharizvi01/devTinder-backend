@@ -1,8 +1,10 @@
-
-//mongodb+srv://abiharizvi01_db_user:mPv3yWKYEQQyGO2f@cluster0.ihiwtdn.mongodb.net/?appName=Cluster0
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-const DB_CONNECTION_STRING = "mongodb+srv://abiharizvi01_db_user:lPfQr0f0vRKBCFgr@cluster0.ihiwtdn.mongodb.net/devTinder?appName=Cluster0";
+dotenv.config();
+
+
+const DB_CONNECTION_STRING = process.env.MONGODB_URI;
 
 const connectDB = async () => {
     try {

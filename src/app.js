@@ -1,8 +1,13 @@
 //express js is a open source framework of node js
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import connectDB from "./config/database.js"; // Note: In ES Modules, adding the .js extension is required!
 import User from "./Models/user.js"
-import {validateSingUpData} from "./utils/validation.js";
+import validateSignUpData from "./utils/validation.js";
+import bcrypt from "bcrypt";
+
 const app = express();
 const PORT = 7777;
 
@@ -16,11 +21,35 @@ app.post("/signup",async (req,res)=>{
     //     emailId:"abiha@gmail.com",
     //     password:"password1234"
     // });
+    try{
+        validateSignUpData(req);
 
+        const {firstName,lastName,emailId,password}=req.body;
+
+        const passwordHash=await bcrypt.hash(password,10);
+        const user = new User({
+            firstName,
+            lastName,
+            emailId,
+            password:passwordHash,
+        });
+        await user.save();
+        res.send("data added successfully");
+    }catch(err){
+        res.status(400).send("Error saving the user "+err.message);
+    }
     //const users = await User.insertMany(req.body);
-    const user = new User(req.body);
-    await user.save();
-    res.send("data added successfully");
+    
+});
+
+app.post("/login",async(req,res)=>{
+
+    try{
+       
+        const {emailId,password}=req.body;
+    }catch(err){
+        res.status(400).send("ERROR"+err.message);
+    }
 });
 
 app.get("/user", async (req, res) => {
@@ -81,7 +110,7 @@ app.patch("/updateuser/:userId",async(req,res)=>{
         res.status(400).send("UPDATE FAILED:"+err.message);
     }
 });
-
+console.log(process.env.MONGODB_URI);
 // Establish connection before spinning up the server
 connectDB()
     .then(() => {

@@ -1,6 +1,6 @@
 import validator from "validator";
 
-const validateSingUpData=(req)=>{
+const validateSignUpData=(req)=>{
     const {firstName,lastName,emailId,password}=req.body;
     if(!firstName ||  !lastName){
         throw new Error("please enter name");
@@ -11,3 +11,5 @@ const validateSingUpData=(req)=>{
         throw new Error("please enter a strong password");
     }
 };
+
+export default validateSignUpData;
